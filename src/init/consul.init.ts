@@ -10,10 +10,12 @@ export const consul = new Consul({
 export async function registerService() {
   try {
     await consul.agent.service.register({
-      id: 'microservice-demo-service',
-      name: 'microservice-demo-service',
+      id: 'microservice-demo-service-group',
+      name: 'microservice-demo-service-group',
       address: 'localhost',
       port: 8081,
+      tags: ['microservice-demo-service-group'],
+      meta: { weight: '1', port: '8082' },
       check: {
         http: 'http://localhost:8081/health',
         interval: '10s',
